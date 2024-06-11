@@ -1,0 +1,509 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poiret+One&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --clr-white: #FFFFFF;
+  --clr-black: #000000;
+  --clr-grey: #2b2727;
+  --clr-grey-2: #2b2727;
+
+  --clr-dark-blue: #0237AB;
+  --clr-light-blue: #125AC6;
+}
+
+body {
+  margin: 0;
+  font-family: "Open Sans";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ------------------------------------------------------ */
+/* -- SELECTS -- */
+
+.sort {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sort__select {
+  width: 225px;
+  height: 40px;
+
+  margin: 25px 5px;
+  border: 1px solid var(--clr-black);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.sort__select p {
+  margin-left: 10px;
+  font-size: clamp(0.80rem, 2vw, 1rem);
+}
+
+.sort__select img {
+  width: 15px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.sort__select:hover {
+  border: 1px solid var(--clr-light-blue);
+  outline: 2px solid var(--clr-light-blue);
+}
+
+/* ------------------------------------------------------ */
+/* -- SEAT CHART -- */
+
+.event_css {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.event_css__seating {
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(25, 1fr);
+
+  background: linear-gradient(to bottom);
+  border: 10px solid var(--clr-grey);
+  border-radius: 8px;
+
+  width: 90%;
+  max-width: 1200px;
+  height: 85%;
+  margin: 0 auto;
+  padding: 20px;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  overflow-x: scroll;
+}
+
+.event_css__seating h1 {
+  grid-column: 1 / span 27;
+  grid-row: 1;
+
+  color: var(--clr-white);
+  font-weight: 300;
+}
+
+.event_css__close {
+  grid-column: 27 / span 1;
+  grid-row: 1;
+
+  width: 35px;
+  height: 35px;
+
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--clr-grey);
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  transition: 250ms ease all;
+}
+
+.event_css__close:hover {
+  background: rgba(255, 255, 255, 1);
+  border: 1px solid var(--clr-white);
+}
+
+.event_css__close img {
+  width: 25px;
+  height: 25px;
+}
+
+.event_css__stage,
+.event_css__spacer--1,
+.event_css__spacer--2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color:rgb(57, 56, 56) ;
+  color: var(--clr-white);
+}
+
+.event_css__stage {
+  grid-column: 1 / span 27;
+  grid-row: 2;
+
+  height: 150px;
+
+  border: 3px solid rgb(128, 124, 124);
+  border-radius: 0 0 24px 24px;
+}
+
+.event_css__spacer--1,
+.event_css__spacer--2 {
+  min-width: 30px;
+  margin: 0 5px;
+  border: 1px solid rgb(115, 113, 113);
+  writing-mode: vertical-lr;
+}
+
+.event_css__spacer--1 {
+  grid-column: 6 / span 1;
+  grid-row: 3 / span 10;
+}
+
+.event_css__spacer--2 {
+  grid-column: 22 / span 1;
+  grid-row: 3 / span 10;
+}
+
+.event_css__seats,
+.event_css__seats--taken {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--clr-dark-blue);
+  color: var(--clr-white);
+
+  width: 35px;
+  height: 35px;
+  border: 1px solid black;
+  border-radius: 50%;
+
+  font-size: 0.9em;
+
+  cursor: pointer;
+
+  transition: 250ms ease all;
+}
+
+.event_css__seats:hover {
+  background: var(--clr-white);
+  color: var(--clr-black);
+
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.event_css__seats--taken {
+  background-color: rgba(34, 64, 109, 0.7);
+}
+
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  margin: auto;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.close-button {
+  color: #d12121;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+/* Navigation bar */
+
+.nav-container {
+  border: 2px solid black;
+  padding: 20px;
+  margin: 10px;
+}
+
+.nav-container h1 {
+  margin: 0;
+}
+
+.nav-container input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+}
+
+.nav-container ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.nav-container ul li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.nav-container ul li a {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-container button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.nav-container button:hover {
+  background-color: #0056b3;
+}
+
+.navigation_bar_list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation_bar_list li {
+  display: inline;
+  margin-right: 10px;
+}
+
+.navigation_bar_list li:last-child {
+  margin-right: 0;
+}
+
+.navigation_bar_list li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.navigation_bar_list li a:hover {
+  color: #007bff;
+}
+
+
+/* card styling */
+.card-container {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.card-container p {
+  margin: 0;
+}
+
+.card-container h3 {
+  margin: 10px 0;
+}
+
+.card-container button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.card-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.card-container hr {
+  margin-top: 20px;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+
+/* add event form styling */
+.add-event-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.add-event-form {
+  width: 100%;
+  padding: 40px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-event-form h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.add-event-form label {
+  display: block;
+  margin-bottom: 10px;
+  color: #666;
+}
+
+.add-event-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.add-event-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-event-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Pagination styling */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #4CAF50; /* Green background */
+  border: none;
+  color: white; /* White text */
+  padding: 10px 20px; /* Padding */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0 5px; /* Margin between buttons */
+  cursor: pointer;
+  border-radius: 5px; /* Rounded corners */
+}
+
+.pagination button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+.pagination button:disabled {
+  background-color: #cccccc; /* Light grey for disabled buttons */
+  cursor: not-allowed; /* Change cursor on disabled state */
+}
+
+
+/* summary styling */
+
+.modal-background {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 80%;
+  max-height: 80%;
+  overflow: auto;
+  position: relative;
+}
+
+.close-button {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.title {
+  text-align: center;
+  color: #004080;
+  margin: 10px 0;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  color: #004080;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.feature-list,
+.function-list {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.feature-list li,
+.function-list li {
+  list-style-type: disc;
+  margin-left: 20px;
+}
